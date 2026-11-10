@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🪕 Kirtan Vibes — Full-Stack Monorepo
 
-## Getting Started
+A complete full-stack web application and management system for **Kirtan Vibes by Sri Ganapathi Prabhu** (Sacred Vedic Acoustics, Handcrafted Mridangas & Kirtan Academy in Bengaluru).
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 📁 Monorepo Structure
+
+```
+kirtan-vibes/
+├── frontend/                     # Next.js 16 (App Router, Tailwind CSS v4, TypeScript)
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── page.tsx          # Home: Hand-Tuned Mridangas, Web Audio Resonator Preview
+│   │   │   ├── instruments/      # Shop: Full Catalog & Interactive Detail Modal
+│   │   │   ├── tutorials/        # Academy: 1-on-1 Masterclasses & Bangalore Workshop
+│   │   │   ├── cart/             # Sacred Cart: Live State, Transit Review & WhatsApp Checkout
+│   │   │   ├── about/            # About Sri Ganapathi Prabhu: 4 Sacred Pillars & Parampara
+│   │   │   ├── layout.tsx        # Root Layout with Vedic Typography & Sacred Themes
+│   │   │   └── globals.css       # Design System Tokens ("Vedic Sacred Elegance")
+│   │   ├── components/
+│   │   │   ├── Header.tsx        # Uncluttered Header + Slide-Over Hamburger Menu Drawer
+│   │   │   └── Footer.tsx        # Detailed Vedic Footer + Floating WhatsApp Acharya Widget
+│   │   └── context/
+│   │       └── CartContext.tsx   # Global Shopping Cart State Provider
+│   └── package.json
+│
+├── backend/                      # Django 6.1 (Django REST Framework, SQLite, CORS)
+│   ├── kirtan_vibes_backend/     # Settings, URL routing, WSGI
+│   ├── store/                    # Core Domain App
+│   │   ├── models.py             # Category, Instrument, AcademyBooking, Order, OrderItem, WorkshopService
+│   │   ├── admin.py              # Customized Sacred Django Admin Portal
+│   │   ├── serializers.py        # REST Framework Serializers
+│   │   ├── views.py              # REST Framework ViewSets with search & filters
+│   │   └── urls.py               # API endpoints (/api/instruments/, /api/bookings/, etc.)
+│   ├── seed_data.py              # Seeds initial instruments, categories & creates superuser
+│   ├── requirements.txt          # Python dependencies
+│   └── manage.py
+│
+├── package.json                  # Root Monorepo Scripts
+└── README.md                     # Monorepo Documentation
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ⚡ Quick Start
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. Backend (Django)
 
-## Learn More
+From the root directory or inside `backend/`:
 
-To learn more about Next.js, take a look at the following resources:
+```powershell
+cd D:\projects\kirtan-vibes\backend
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Activate virtual environment
+.\venv\Scripts\Activate.ps1
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Run migrations (already applied)
+python manage.py migrate
 
-## Deploy on Vercel
+# Start the Django server
+python manage.py runserver 8000
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Django Admin Portal**: [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
+  - **Username**: `admin`
+  - **Password**: `admin123`
+- **REST API Endpoints**:
+  - `http://127.0.0.1:8000/api/instruments/` (Filter by `?category=...` or `?body_type=clay`)
+  - `http://127.0.0.1:8000/api/categories/`
+  - `http://127.0.0.1:8000/api/bookings/`
+  - `http://127.0.0.1:8000/api/orders/`
+  - `http://127.0.0.1:8000/api/workshop-services/`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+### 2. Frontend (Next.js)
+
+In a separate terminal:
+
+```powershell
+cd D:\projects\kirtan-vibes\frontend
+
+# Start Next.js development server
+npm run dev
+```
+
+- **Website URL**: [http://localhost:3000](http://localhost:3000)
+
+---
+
+## 🛠️ Root Monorepo Scripts
+
+From the root `D:\projects\kirtan-vibes` directory:
+
+| Command | Description |
+| :--- | :--- |
+| `npm run dev:frontend` | Starts the Next.js development server on port 3000 |
+| `npm run build:frontend` | Creates an optimized production build of the frontend |
+| `npm run lint:frontend` | Runs ESLint on frontend code |
+| `npm run dev:backend` | Starts the Django development server on port 8000 |
+| `npm run migrate:backend` | Applies Django database migrations |
+| `npm run seed:backend` | Re-seeds initial instrument catalog and sample orders |
+
+---
+
+## 🎛️ Django Admin Features
+
+The Django Admin has been customized for Sri Ganapathi Prabhu's operations:
+1. **Instrument Catalog Management**:
+   - Manage pricing, tuning scales (C#, D, D#), stock counts, and body types (Terracotta Clay vs. All-Weather Fiberglass).
+   - In-line editable stock, featured flags, and pricing.
+2. **Devotional Academy Bookings**:
+   - Track devotee registrations for 1-on-1 Online Masterclasses and In-Studio Bangalore Workshops.
+   - Update statuses (`Pending Acharya Review` ➜ `Confirmed & Slot Transmitted`).
+3. **Sacred Orders & Transit Management**:
+   - Devotee delivery details (Temple Ashram or Sanctum address).
+   - WhatsApp audio/video proof verification status.
+   - Wooden crate armor tracking number assignment.
+4. **Workshop Repairs & Tuning**:
+   - Dayan & Bayaan ghab replacement tracking, leather braiding restringing requests.

@@ -1,26 +1,23 @@
 {
-  "name": "kirtan-vibes",
-  "version": "0.1.0",
+  "name": "kirtan-vibes-monorepo",
+  "version": "1.0.0",
   "private": true,
+  "description": "Monorepo for Kirtan Vibes: Next.js Frontend & Django REST Backend with Admin Panel",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "dev:frontend": "npm run dev --prefix frontend",
+    "build:frontend": "npm run build --prefix frontend",
+    "lint:frontend": "npm run lint --prefix frontend",
+    "dev:backend": "powershell -Command \"cd backend; .\\venv\\Scripts\\python.exe manage.py runserver 8000\"",
+    "migrate:backend": "powershell -Command \"cd backend; .\\venv\\Scripts\\python.exe manage.py migrate\"",
+    "seed:backend": "powershell -Command \"cd backend; .\\venv\\Scripts\\python.exe seed_data.py\""
   },
-  "dependencies": {
-    "next": "16.4.6",
-    "react": "19.3.0",
-    "react-dom": "19.3.0"
-  },
-  "devDependencies": {
-    "@tailwindcss/turbopack": "4.3.3",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.4.6",
-    "tailwindcss": "4.3.3",
-    "typescript": "^5"
-  }
+  "keywords": [
+    "nextjs",
+    "django",
+    "mridanga",
+    "kirtan",
+    "monorepo"
+  ],
+  "author": "Sri Ganapathi Prabhu / Kirtan Vibes",
+  "license": "UNLICENSED"
 }
